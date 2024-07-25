@@ -1,0 +1,14 @@
+{
+	"name": "AzureSQLdb_LinkedService",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "devhospitalserver.database.windows.net",
+			"database": "hospitaldb",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SystemAssignedManagedIdentity"
+		}
+	}
+}
