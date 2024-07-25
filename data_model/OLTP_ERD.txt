@@ -1,0 +1,139 @@
+
+## This is the schema extracted from the hospital's transactional database
+
+
+==================================
+    HOSPITAL OPERATIONAL DATABASE(OLTP)
+==================================
+
+OLTP ERD and SCHEMA
+-------------------------------
+         patients_data
+-------------------------------
+| Column Name                     | Data Type      |
+|---------------------------------|----------------|
+| patient_id (PK)                 | UUID           |
+| first_name                      | String         |
+| last_name                       | String         |
+| date_of_birth                   | Date           |
+| gender                          | String         |
+| ethnicity                       | String         |
+| address                         | String         |
+| contact_number                  | String         |
+| marital_status                  | String         |
+| insurance_provider              | String         |
+| insurance_policy_number         | String         |
+| emergency_contact_name          | String         |
+| emergency_contact_relationship  | String         |
+| emergency_contact_number        | String         |
+
+-------------------------------
+         doctors_data
+-------------------------------
+| Column Name         | Data Type |
+|---------------------|-----------|
+| doctor_id (PK)      | UUID      |
+| first_name          | String    |
+| last_name           | String    |
+| specialty           | String    |
+| contact_number      | String    |
+| email               | String    |
+| department_id (FK)  | Integer   |
+
+-------------------------------
+       departments_data
+-------------------------------
+| Column Name            | Data Type |
+|------------------------|-----------|
+| department_id (PK)     | Integer   |
+| department_name        | String    |
+| head_of_department     | String    |
+| contact_number         | String    |
+
+-------------------------------
+      medical_records_data
+-------------------------------
+| Column Name               | Data Type |
+|---------------------------|-----------|
+| record_id (PK)            | UUID      |
+| patient_id (FK)           | UUID      |
+| admission_date            | Date      |
+| discharge_date            | Date      |
+| diagnosis                 | String    |
+| treatment_description     | Text      |
+| prescribed_medications    | String    |
+| attending_physician       | String    |
+| department_id (FK)        | Integer   |
+| room_number               | Integer   |
+| admission_reason          | String    |
+
+-------------------------------
+     imaging_results_data
+-------------------------------
+| Column Name         | Data Type |
+|---------------------|-----------|
+| result_id (PK)      | UUID      |
+| patient_id (FK)     | UUID      |
+| imaging_type        | String    |
+| imaging_date        | Date      |
+| image_url           | String    |
+| findings            | String    |
+| radiologist_name    | String    |
+| imaging_equipment   | String    |
+| contrast_used       | Boolean   |
+
+-------------------------------
+       lab_results_data
+-------------------------------
+| Column Name         | Data Type |
+|---------------------|-----------|
+| result_id (PK)      | UUID      |
+| patient_id (FK)     | UUID      |
+| test_name           | String    |
+| test_date           | Date      |
+| test_result         | String    |
+| reference_range     | String    |
+| lab_technician      | String    |
+| test_method         | String    |
+| lab_location        | String    |
+
+-------------------------------
+         trials_data
+-------------------------------
+| Column Name               | Data Type |
+|---------------------------|-----------|
+| trial_id (PK)             | UUID      |
+| trial_name                | String    |
+| principal_investigator    | String    |
+| start_date                | Date      |
+| end_date                  | Date      |
+| trial_description         | Text      |
+| funding_source            | String    |
+| trial_phase               | String    |
+| ethical_approval_number   | String    |
+
+-------------------------------
+      participants_data
+-------------------------------
+| Column Name               | Data Type |
+|---------------------------|-----------|
+| participant_id (PK)       | UUID      |
+| trial_id (FK)             | UUID      |
+| patient_id (FK)           | UUID      |
+| enrollment_date           | Date      |
+| participant_status        | String    |
+| consent_date              | Date      |
+| withdrawal_date           | Date      |
+| withdrawal_reason         | String    |
+
+-------------------------------
+      appointments_data
+-------------------------------
+| Column Name               | Data Type |
+|---------------------------|-----------|
+| appointment_id (PK)       | UUID      |
+| patient_id (FK)           | UUID      |
+| doctor_id (FK)            | UUID      |
+| appointment_date          | Date      |
+| appointment_time          | String    |
+| reason_for_visit          | String    |

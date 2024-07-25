@@ -1,0 +1,7 @@
+-- Create STG Schema
+CREATE SCHEMA STG;
+GO
+
+-- Create EDW Schema
+CREATE SCHEMA EDW;
+GO
