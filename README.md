@@ -23,13 +23,11 @@ National Hospital is leveraging Azure cloud technologies to enhance healthcare r
 ## Getting Started
 1. Clone the repository.
 2. Set up the Azure environment.
-3. Configure your credentials in `config/credentials.yaml`.
-4. Run the data ingestion script: `python scripts/data_ingestion/ingest_data.py`.
+3. Configure your credentials in `.env`.
+4. Run the data ingestion script: `python scripts/ingest_data.py`.
 5. Execute the pipeline in Azure Data Factory.
-6. Validate the data: `python scripts/data_validation/validate_data.py`.
+6. Validate the data: `python scripts/validate_data.py`.
 
-## License
-This project is licensed under the MIT License.
 
 # Steps 
 1. Conceptual Stage : Meeting with Business Team, Software teams, Project Managers, Data Team, other Stakeholders.
