@@ -74,6 +74,43 @@ For full capability; log in the SQL Database on `Azure Data Studio` otherwise th
 
 9. With the resource group for the project, create another resource `Azure Data Factory` which will be used to build the pipeline for this project.
 
+SSIS is more like a legacy version of ADF, so we used ADF for this project since client is moving to the cloud and moving away from on-prem.
+
+
+10. Link ADF to your repository either on AzureDevOps or Github
+
+# The ELTL Pipeline Configuration on Azure Data Factory (ADF)
+
+The pipeline is an ETLT :
+
+i. Extraction : Copy source file ingested into the Azure Data Lake Storage container with the ingestion script
+
+The `source` is the Datasets in `Azure Data Lake Storage Gen2` Container and where we are copying or extracting to is the `sink`, in this case, `SQL Database`
+
+- Timeout, Retry, and Retry intervals can be configured with respect to the amount of data expected to be copied to avoid wasting resources
+- Define the linked service : which basically defines connection parameters ADF activity needs to authenticate itself when connecting to an external data source.
+- 
+
+Here are the names for all the source datasets:
+
+- Patients Dataset: `src_patients_DS`
+- Medical Records Dataset: `src_medical_records_DS`
+- Imaging Results Dataset: `src_imaging_DS`
+- Lab Results Dataset: `src_lab_results_DS`
+- Trials Dataset: `src_trials_DS`
+- Participants Dataset: `src_participants_DS`
+- Doctors Dataset: `src_doctors_DS`
+- Departments Dataset: `src_departments_DS`
+- Appointments Dataset: `src_appointments_DS`
+
+NB: If you are using system managed Authentication for your SQL Database Linked service, it is important to grant access to ADF instance 
+This can be done by creating a user using the ADF instance name, and Granting the reqiured priviledes as specified in [SQL_access_to_ADF.sql](sql%2FSQL_access_to_ADF.sql)
+NB: When selecting your runtime, `AutoResolveIntegrationRuntime` works when your source is with azure or Azure Storage. if you are extracting or pulling the data on-prem or outside Azure platform, you need to create a configured Integration Runtime(IR) using file downloaded after the configuration. 
+
+ii. 
+
+
+
 
 
 
