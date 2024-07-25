@@ -1,0 +1,9 @@
+{
+	"name": "hospitalprojectADF",
+	"location": "ukwest",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "734c4d13-02fa-432f-91be-4fb66fda96f1",
+		"tenantId": "4b630d1b-339f-4ae6-8d44-412c8ee9b5e8"
+	}
+}
