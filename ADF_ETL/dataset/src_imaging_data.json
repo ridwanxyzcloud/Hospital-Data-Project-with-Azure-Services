@@ -1,0 +1,60 @@
+{
+	"name": "src_imaging_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_LinkedStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "imaging_results_data.csv",
+				"fileSystem": "source"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "result_id",
+				"type": "String"
+			},
+			{
+				"name": "patient_id",
+				"type": "String"
+			},
+			{
+				"name": "imaging_type",
+				"type": "String"
+			},
+			{
+				"name": "imaging_date",
+				"type": "String"
+			},
+			{
+				"name": "image_url",
+				"type": "String"
+			},
+			{
+				"name": "findings",
+				"type": "String"
+			},
+			{
+				"name": "radiologist_name",
+				"type": "String"
+			},
+			{
+				"name": "imaging_equipment",
+				"type": "String"
+			},
+			{
+				"name": "contrast_used",
+				"type": "String"
+			}
+		]
+	}
+}

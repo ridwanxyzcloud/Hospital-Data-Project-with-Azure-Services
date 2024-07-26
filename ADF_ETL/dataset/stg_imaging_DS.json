@@ -1,0 +1,16 @@
+{
+	"name": "stg_imaging_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSQLdb_LinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "STG",
+			"table": "imaging_result"
+		}
+	}
+}
