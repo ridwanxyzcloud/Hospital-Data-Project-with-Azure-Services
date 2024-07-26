@@ -106,6 +106,7 @@ Here are the names for all the source datasets:
 NB: If you are using system managed Authentication for your SQL Database Linked service, it is important to grant access to ADF instance 
 This can be done by creating a user using the ADF instance name, and Granting the reqiured priviledes as specified in [SQL_access_to_ADF.sql](sql%2FSQL_access_to_ADF.sql)
 NB: When selecting your runtime, `AutoResolveIntegrationRuntime` works when your source is with azure or Azure Storage. if you are extracting or pulling the data on-prem or outside Azure platform, you need to create a configured Integration Runtime(IR) using file downloaded after the configuration. 
+- Validate after each dataset is added to the pipeline and debug 
 
 ii. 
 
