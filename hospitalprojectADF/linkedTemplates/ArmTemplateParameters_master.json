@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "hospitalprojectADF"
+		},
+		"ADLS_LinkedStorage_accountKey": {
+			"value": ""
+		},
+		"ADLS_LinkedStorage_properties_typeProperties_url": {
+			"value": "https://devhospitalstorage.dfs.core.windows.net/"
+		},
+		"AzureSQLdb_LinkedService_properties_typeProperties_server": {
+			"value": "devhospitalserver.database.windows.net"
+		},
+		"AzureSQLdb_LinkedService_properties_typeProperties_database": {
+			"value": "hospitaldb"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

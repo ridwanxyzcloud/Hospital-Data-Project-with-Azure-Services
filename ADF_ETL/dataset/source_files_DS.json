@@ -1,0 +1,56 @@
+{
+	"name": "source_files_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_LinkedStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"fileSystem": "source"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "appointment_id",
+				"type": "String"
+			},
+			{
+				"name": "patient_id",
+				"type": "String"
+			},
+			{
+				"name": "doctor_id",
+				"type": "String"
+			},
+			{
+				"name": "appointment_date",
+				"type": "String"
+			},
+			{
+				"name": "appointment_time",
+				"type": "String"
+			},
+			{
+				"name": "reason_for_visit",
+				"type": "String"
+			}
+		]
+	}
+}
