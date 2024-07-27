@@ -108,12 +108,13 @@ This can be done by creating a user using the ADF instance name, and Granting th
 NB: When selecting your runtime, `AutoResolveIntegrationRuntime` works when your source is with azure or Azure Storage. if you are extracting or pulling the data on-prem or outside Azure platform, you need to create a configured Integration Runtime(IR) using file downloaded after the configuration. 
 - Validate after each dataset is added to the pipeline and debug 
 
-ii. 
+ii. Transformation: The stored procedure is configured to load data from the staging schema to the Enterprise data warehouse while performing transformation and 
+logging the stored procedure activities in the pipeline.
 
+the `DATE_CTE` primarily serves to consolidate and standardize date information for the dim_date table, 
+while also contributing to some optimization in terms of reduced redundancy and improved query maintainability.
 
-
-
-
+iii. Loading : The transformed data loaded into the EDW schema is ready to use for production, and the pipeline is configured to store aggregates in production schemas of different departments of the organization for further analysis, visualization and reports.
 
 
 

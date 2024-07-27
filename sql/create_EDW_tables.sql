@@ -1,12 +1,12 @@
--- Create DimPatient table
-CREATE TABLE EDW.DimPatient (
+-- Create dim_patients table
+CREATE TABLE EDW.dim_patients (
     patient_id UNIQUEIDENTIFIER PRIMARY KEY,
     first_name NVARCHAR(50),
     last_name NVARCHAR(50),
     date_of_birth DATE,
     gender NVARCHAR(10),
     ethnicity NVARCHAR(20),
-    address NVARCHAR(255),
+    [address] NVARCHAR(255),
     contact_number NVARCHAR(20),
     marital_status NVARCHAR(20),
     insurance_provider NVARCHAR(50),
@@ -17,8 +17,8 @@ CREATE TABLE EDW.DimPatient (
 );
 GO
 
--- Create DimDoctor table
-CREATE TABLE EDW.DimDoctor (
+-- Create dim_doctors table
+CREATE TABLE EDW.dim_doctors (
     doctor_id UNIQUEIDENTIFIER PRIMARY KEY,
     first_name NVARCHAR(50),
     last_name NVARCHAR(50),
@@ -29,8 +29,8 @@ CREATE TABLE EDW.DimDoctor (
 );
 GO
 
--- Create DimDepartment table
-CREATE TABLE EDW.DimDepartment (
+-- Create dim_departments table
+CREATE TABLE EDW.dim_departments (
     department_id INT PRIMARY KEY,
     department_name NVARCHAR(50),
     head_of_department NVARCHAR(50),
@@ -38,45 +38,19 @@ CREATE TABLE EDW.DimDepartment (
 );
 GO
 
--- Create DimDate table
-CREATE TABLE EDW.DimDate (
-    date DATE PRIMARY KEY,
+-- Create dim_date table
+CREATE TABLE EDW.dim_date (
+    [date] DATE PRIMARY KEY,
     day_of_week NVARCHAR(10),
-    month NVARCHAR(10),
-    quarter NVARCHAR(10),
-    year INT
+    [month] NVARCHAR(10),
+    [quarter] NVARCHAR(10),
+    [year] INT
 );
 GO
 
--- Create DimTrial table
-CREATE TABLE EDW.DimTrial (
-    trial_id UNIQUEIDENTIFIER PRIMARY KEY,
-    trial_name NVARCHAR(255),
-    principal_investigator NVARCHAR(100),
-    start_date DATE,
-    end_date DATE,
-    trial_description NVARCHAR(MAX),
-    funding_source NVARCHAR(100),
-    trial_phase NVARCHAR(20),
-    ethical_approval_number NVARCHAR(50)
-);
-GO
 
--- Create DimParticipant table
-CREATE TABLE EDW.DimParticipant (
-    participant_id UNIQUEIDENTIFIER PRIMARY KEY,
-    trial_id UNIQUEIDENTIFIER,
-    patient_id UNIQUEIDENTIFIER,
-    enrollment_date DATE,
-    participant_status NVARCHAR(20),
-    consent_date DATE,
-    withdrawal_date DATE,
-    withdrawal_reason NVARCHAR(255)
-);
-GO
-
--- Create FactMedicalRecords table
-CREATE TABLE EDW.FactMedicalRecords (
+-- Create fact_medicalrecords table
+CREATE TABLE EDW.fact_medicalrecords (
     record_id UNIQUEIDENTIFIER PRIMARY KEY,
     patient_id UNIQUEIDENTIFIER,
     doctor_id UNIQUEIDENTIFIER,
@@ -92,8 +66,8 @@ CREATE TABLE EDW.FactMedicalRecords (
 );
 GO
 
--- Create FactImagingResults table
-CREATE TABLE EDW.FactImagingResults (
+-- Create fact_imagingresults table
+CREATE TABLE EDW.fact_imagingresults (
     result_id UNIQUEIDENTIFIER PRIMARY KEY,
     patient_id UNIQUEIDENTIFIER,
     imaging_type NVARCHAR(50),
@@ -106,8 +80,8 @@ CREATE TABLE EDW.FactImagingResults (
 );
 GO
 
--- Create FactLabResults table
-CREATE TABLE EDW.FactLabResults (
+-- Create fact_labresults table
+CREATE TABLE EDW.fact_labresults (
     result_id UNIQUEIDENTIFIER PRIMARY KEY,
     patient_id UNIQUEIDENTIFIER,
     test_name NVARCHAR(100),
@@ -120,8 +94,8 @@ CREATE TABLE EDW.FactLabResults (
 );
 GO
 
--- Create FactAppointments table
-CREATE TABLE EDW.FactAppointments (
+-- Create fact_appointments table
+CREATE TABLE EDW.fact_appointments (
     appointment_id UNIQUEIDENTIFIER PRIMARY KEY,
     patient_id UNIQUEIDENTIFIER,
     doctor_id UNIQUEIDENTIFIER,
