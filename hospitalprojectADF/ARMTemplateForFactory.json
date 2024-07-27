@@ -152,6 +152,34 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "load_stg_data_to_edw_prc",
+						"description": "Procedure to load data from stg to edw",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Loop through source files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[STG].[load_data_to_edw_procedure_f]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSQLdb_LinkedService",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -161,6 +189,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/source_metadata_DS')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureSQLdb_LinkedService')]",
 				"[concat(variables('factoryId'), '/datasets/source_files_DS')]",
 				"[concat(variables('factoryId'), '/datasets/staging_tables_DS')]"
 			]
