@@ -1,24 +1,30 @@
-# National Hospital Data Engineering Project
+# Hospital Data Engineering Project
+
+![hospital_pipeline_architecture.png](assets%2Fhospital_pipeline_architecture.png)
 
 ## Overview
-National Hospital is leveraging Azure cloud technologies to enhance healthcare research and patient care through data analytics.
+A particular hospital is leveraging Azure cloud technologies to enhance healthcare research and patient care through data analytics.
 
-## Objectives
+## Project Objectives
 1. Design a dimensional data model (OLAP) for the hospital.
 2. Load the data to Azure Blob Storage.
-3. Create a Data warehouse with STG and EDW schemas.
-4. Build a pipeline on Azure Data Factory.
+4. Build a pipeline on Azure Data Factory (ADF).
 5. Transform and load data into the EDW schema.
 6. Test the Data warehouse with queries.
 7. Schedule daily refresh of the Data warehouse.
 8. Recommend process optimizations.
 
 ## Project Structure
-- **docs/**: Documentation and diagrams.
-- **data/**: Raw and transformed data.
-- **scripts/**: Ingestion, transformation, validation scripts, and test queries.
-- **azure/**: Azure-specific configurations and pipeline definitions.
-- **config/**: Configuration files.
+- **ADF_ETL/**: Azure-specific configurations and pipeline definitions.
+- **assets/**: Snapshots of the project during development.
+- **data_model/**: project architecture, Data warehouse Dimensional model.
+- **docs/**: Documentation.
+- **hospitalprojectADF/**: Azure Data Factory Managed Instance configurations and ETL files and source code.
+- **docs/**: Documentation.
+- **sample_data/**: Raw sample data.
+- **scripts/**: Data Ingestion and validation scripts.
+- **sql/**: ADF access, stored procedure, schema creation and EDW tables sql queries.
+- **.env/**: database connection credentials.
 
 ## Getting Started
 1. Clone the repository.
