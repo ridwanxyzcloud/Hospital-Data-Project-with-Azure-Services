@@ -123,6 +123,8 @@ while also contributing to some optimization in terms of reduced redundancy and 
 
 iii. Loading : The transformed data loaded into the EDW schema is ready to use for production, and the pipeline is configured to store aggregates in production schemas of different departments of the organization for further analysis, visualization and reports.
 
+![ETL on ADF.png](assets%2FETL%20on%20ADF.png)
+
 ## Continuation
 
 In production, other data transformation tools like dbt can be attached to the data warehouse to feed aggregates to other data warehouse used for other business purpose and for report analysis.
