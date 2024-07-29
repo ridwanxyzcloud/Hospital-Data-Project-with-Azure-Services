@@ -6,11 +6,11 @@ National Hospital is leveraging Azure cloud technologies to enhance healthcare r
 ## Objectives
 1. Design a dimensional data model (OLAP) for the hospital.
 2. Load the data to Azure Blob Storage.
-3. Create a Datawarehouse with STG and EDW schemas.
+3. Create a Data warehouse with STG and EDW schemas.
 4. Build a pipeline on Azure Data Factory.
 5. Transform and load data into the EDW schema.
-6. Test the Datawarehouse with queries.
-7. Schedule daily refresh of the Datawarehouse.
+6. Test the Data warehouse with queries.
+7. Schedule daily refresh of the Data warehouse.
 8. Recommend process optimizations.
 
 ## Project Structure
@@ -44,7 +44,7 @@ LRS is cost effective and should be considered maybe during development. Choice 
 Zone-redundant storage (ZRS) will back it up in a different zone within the same region.
 Geo-zone-redundant storage(GZRS) combines both zone- and geo-redundant storage and it is the most expensive which is mostly used for critical data
 
-NB: Coosing between Blob Storage and ADLS : The difference is Blob storage DOES NOT have 'Heirachical Namespace' while ADLS have.
+NB: Chosing between Blob Storage and ADLS : The difference is Blob storage DOES NOT have 'Heirachical Namespace' while ADLS have.
 `Heirachical namespace` simply means a folder(directory) structure. In Blob storage, all the data is just there in one storage but ADLS can have folders for each classification of data.
 For proper structuring and directory semantics, heirachical namespace is enabled , which means we are using ADLS and not Blob Storage.
 
@@ -55,22 +55,22 @@ NB: Network selection is another thing: In development, you can enable public ac
 
 7. You can either upload the source files manually or use the python script to fetch and drop the data in the container.
 
-If you are a consultant, it is common that the client will most likely drop the source files in a container for you.
+As a consultant, it is common that the client will most likely drop the source files in a container where your pipeline can pick it up.
 So the ADLS container can be business-phasing or client-phasing by exposing it to the client or business so they can always drop source file in the container for you.
 Your pipeline can then be configured to pick it up from there.
 
-For this project, i am using a data ingestion script `ingest_data.py`that uploads the source files in to container 
+For this project, i used a data ingestion script `ingest_data.py`that uploads the source files in to container 
 
 Get `AZURE_CONNECTION_STRING` from 'Access and Access Keys' in your container 'security + networking'
 
-8. Create a SQL Dtabase with two schema. STG FOR staging raw data (BRONZE STAGE) and EDW for Enterprise or business ready data (GOLD STAGE)
+8. Create a SQL Database with two schema. STG FOR staging raw data (BRONZE STAGE) and EDW for Enterprise or business ready data (GOLD STAGE)
 
 NB: Ensure it is within the same resource group for the project for better classification  
 
-Select server or create a new one : We will be using Microsoft Entra Autehtication because it allows centralized Identity Management and more secure for production usage.
+Select server or create a new one : I used Microsoft Entra Autehtication because it allows centralized Identity Management and more secure for production usage.
 Additionally, it can integrate with on-premises Active Directory and other SaaS applications.
 
-For full capability; log in the SQL Database on `Azure Data Studio` otherwise the cacapibities from the query editor is limited
+For full capability; log in the SQL Database on `Azure Data Studio` otherwise the capabilities from the query editor is limited
 
 9. With the resource group for the project, create another resource `Azure Data Factory` which will be used to build the pipeline for this project.
 
@@ -78,6 +78,7 @@ SSIS is more like a legacy version of ADF, so we used ADF for this project since
 
 
 10. Link ADF to your repository either on AzureDevOps or Github
+
 
 # The ELTL Pipeline Configuration on Azure Data Factory (ADF)
 
@@ -104,16 +105,22 @@ Here are the names for all the source datasets:
 - Appointments Dataset: `src_appointments_DS`
 
 NB: If you are using system managed Authentication for your SQL Database Linked service, it is important to grant access to ADF instance 
-This can be done by creating a user using the ADF instance name, and Granting the reqiured priviledes as specified in [SQL_access_to_ADF.sql](sql%2FSQL_access_to_ADF.sql)
+This can be done by creating a user using the ADF instance name, and Granting the required privileges as specified in [SQL_access_to_ADF.sql](sql%2FSQL_access_to_ADF.sql)
 NB: When selecting your runtime, `AutoResolveIntegrationRuntime` works when your source is with azure or Azure Storage. if you are extracting or pulling the data on-prem or outside Azure platform, you need to create a configured Integration Runtime(IR) using file downloaded after the configuration. 
 - Validate after each dataset is added to the pipeline and debug 
 
-ii. 
+ii. Transformation: The stored procedure is configured to load data from the staging schema to the Enterprise data warehouse while performing transformation and 
+logging the stored procedure activities in the pipeline.
 
+the `DATE_CTE` primarily serves to consolidate and standardize date information for the dim_date table, 
+while also contributing to some optimization in terms of reduced redundancy and improved query maintainability.
 
+iii. Loading : The transformed data loaded into the EDW schema is ready to use for production, and the pipeline is configured to store aggregates in production schemas of different departments of the organization for further analysis, visualization and reports.
 
+## Continuation
 
-
+In production, other data transformation tools like dbt can be attached to the data warehouse to feed aggregates to other data warehouse used for other business purpose and for report analysis.
+For aggregating to server outside the EDW , `sp_addlinkedserver` can be used to create connection to a database on another server. dblink models for postgres servers, or establish external connection using API. 
 
 
 
