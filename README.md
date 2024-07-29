@@ -1,24 +1,30 @@
-# National Hospital Data Engineering Project
+# Hospital Data Engineering Project
+
+![hospital_pipeline_architecture.png](assets%2Fhospital_pipeline_architecture.png)
 
 ## Overview
-National Hospital is leveraging Azure cloud technologies to enhance healthcare research and patient care through data analytics.
+A particular hospital is leveraging Azure cloud technologies to enhance healthcare research and patient care through data analytics.
 
-## Objectives
+## Project Objectives
 1. Design a dimensional data model (OLAP) for the hospital.
 2. Load the data to Azure Blob Storage.
-3. Create a Data warehouse with STG and EDW schemas.
-4. Build a pipeline on Azure Data Factory.
+4. Build a pipeline on Azure Data Factory (ADF).
 5. Transform and load data into the EDW schema.
 6. Test the Data warehouse with queries.
 7. Schedule daily refresh of the Data warehouse.
 8. Recommend process optimizations.
 
 ## Project Structure
-- **docs/**: Documentation and diagrams.
-- **data/**: Raw and transformed data.
-- **scripts/**: Ingestion, transformation, validation scripts, and test queries.
-- **azure/**: Azure-specific configurations and pipeline definitions.
-- **config/**: Configuration files.
+- **ADF_ETL/**: Azure-specific configurations and pipeline definitions.
+- **assets/**: Snapshots of the project during development.
+- **data_model/**: project architecture, Data warehouse Dimensional model.
+- **docs/**: Documentation.
+- **hospitalprojectADF/**: Azure Data Factory Managed Instance configurations and ETL files and source code.
+- **docs/**: Documentation.
+- **sample_data/**: Raw sample data.
+- **scripts/**: Data Ingestion and validation scripts.
+- **sql/**: ADF access, stored procedure, schema creation and EDW tables sql queries.
+- **.env/**: database connection credentials.
 
 ## Getting Started
 1. Clone the repository.
@@ -116,6 +122,8 @@ the `DATE_CTE` primarily serves to consolidate and standardize date information 
 while also contributing to some optimization in terms of reduced redundancy and improved query maintainability.
 
 iii. Loading : The transformed data loaded into the EDW schema is ready to use for production, and the pipeline is configured to store aggregates in production schemas of different departments of the organization for further analysis, visualization and reports.
+
+![ETL on ADF.png](assets%2FETL%20on%20ADF.png)
 
 ## Continuation
 
