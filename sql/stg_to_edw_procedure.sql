@@ -1,4 +1,8 @@
-CREATE PROCEDURE STG.load_data_to_edw_procedure
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [STG].[load_data_to_edw_procedure]
 AS
 BEGIN
     -- Declare variables for procedure logs
@@ -84,7 +88,7 @@ BEGIN
             contact_number
         FROM STG.departments_data;
 
-        -- Create a Date CTE for loading dim_date
+        -- Create a Date CTE for loading dim_date from multiple sources
         WITH DATES_CTE AS
         (
             SELECT DISTINCT
@@ -99,6 +103,51 @@ BEGIN
                 END AS [quarter],
                 YEAR(CONVERT(DATE, appointment_date, 103)) AS [year]
             FROM STG.appointments_data
+
+            UNION
+
+            SELECT DISTINCT
+                CONVERT(DATE, admission_date, 103) AS [date],
+                DATENAME(WEEKDAY, CONVERT(DATE, admission_date, 103)) AS day_of_week,
+                DATENAME(MONTH, CONVERT(DATE, admission_date, 103)) AS [month],
+                CASE
+                    WHEN MONTH(CONVERT(DATE, admission_date, 103)) IN (1, 2, 3) THEN 'Q1'
+                    WHEN MONTH(CONVERT(DATE, admission_date, 103)) IN (4, 5, 6) THEN 'Q2'
+                    WHEN MONTH(CONVERT(DATE, admission_date, 103)) IN (7, 8, 9) THEN 'Q3'
+                    ELSE 'Q4'
+                END AS [quarter],
+                YEAR(CONVERT(DATE, admission_date, 103)) AS [year]
+            FROM STG.medical_records_data
+
+            UNION
+
+            SELECT DISTINCT
+                CONVERT(DATE, imaging_date, 103) AS [date],
+                DATENAME(WEEKDAY, CONVERT(DATE, imaging_date, 103)) AS day_of_week,
+                DATENAME(MONTH, CONVERT(DATE, imaging_date, 103)) AS [month],
+                CASE
+                    WHEN MONTH(CONVERT(DATE, imaging_date, 103)) IN (1, 2, 3) THEN 'Q1'
+                    WHEN MONTH(CONVERT(DATE, imaging_date, 103)) IN (4, 5, 6) THEN 'Q2'
+                    WHEN MONTH(CONVERT(DATE, imaging_date, 103)) IN (7, 8, 9) THEN 'Q3'
+                    ELSE 'Q4'
+                END AS [quarter],
+                YEAR(CONVERT(DATE, imaging_date, 103)) AS [year]
+            FROM STG.imaging_results_data
+
+            UNION
+
+            SELECT DISTINCT
+                CONVERT(DATE, test_date, 103) AS [date],
+                DATENAME(WEEKDAY, CONVERT(DATE, test_date, 103)) AS day_of_week,
+                DATENAME(MONTH, CONVERT(DATE, test_date, 103)) AS [month],
+                CASE
+                    WHEN MONTH(CONVERT(DATE, test_date, 103)) IN (1, 2, 3) THEN 'Q1'
+                    WHEN MONTH(CONVERT(DATE, test_date, 103)) IN (4, 5, 6) THEN 'Q2'
+                    WHEN MONTH(CONVERT(DATE, test_date, 103)) IN (7, 8, 9) THEN 'Q3'
+                    ELSE 'Q4'
+                END AS [quarter],
+                YEAR(CONVERT(DATE, test_date, 103)) AS [year]
+            FROM STG.lab_results_data
         )
         INSERT INTO EDW.dim_date (
             [date],
