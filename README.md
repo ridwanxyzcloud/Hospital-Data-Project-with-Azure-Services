@@ -36,13 +36,17 @@ A particular hospital is leveraging Azure cloud technologies to enhance healthca
 
 
 # Steps 
-1.  Conceptual Stage : Meeting with Business Team, Software teams, Project Managers, Data Team, other Stakeholders.
+- 1.  Conceptual Stage : Meeting with Business Team, Software teams, Project Managers, Data Team, other Stakeholders.
 
 Goal is to identify stakeholders needs and outline scope of the project.
-2.  Gather requirements and define the project objectives. It is very important that the objectives address the business needs and provides solution to the business problems.
-3.  Design a dimensional data model (OLAP) in accordance to the business needs and the OLTP ERD design or schema of the business
-4.  Create a Resource group on Azure to host all services needed for the project. Create a tag to track all services relating to the project as well.
-5.  Create a storage account on azure within the resource group for the project
+
+- 2.  Gather requirements and define the project objectives. It is very important that the objectives address the business needs and provides solution to the business problems.
+
+- 3.  Design a dimensional data model (OLAP) in accordance to the business needs and the OLTP ERD design or schema of the business
+  
+- 4.  Create a Resource group on Azure to host all services needed for the project. Create a tag to track all services relating to the project as well.
+
+- 5.  Create a storage account on azure within the resource group for the project
 
 In choosing your `Redundancy`, the Locally-redundant storage (LRS) will back up your data in the same data center region you are using for the project , in my case `(Europe) UK West`. 
 Geo-Redundant storage (GRS): will back up your data in your local region and also in another secondary region.
@@ -52,13 +56,12 @@ Geo-zone-redundant storage(GZRS) combines both zone- and geo-redundant storage a
 
 NB: Chosing between Blob Storage and ADLS : The difference is Blob storage DOES NOT have 'Heirachical Namespace' while ADLS have.
 `Heirachical namespace` simply means a folder(directory) structure. In Blob storage, all the data is just there in one storage but ADLS can have folders for each classification of data.
-For proper structuring and directory semantics, heirachical namespace is enabled , which means we are using ADLS and not Blob Storage.
+For proper structuring and directory semantics, heirachical namespace is enabled , which means we are using ADLS Gen2.
+NB: Network selection is another thing: In development, you can enable public access but in producion, companies Use private access or virtual network and IP address.
 
-NB: Network selection is another thing: In development, you can enable public access but in producion, companies Use private access or virtual network and IP address 
+- 6.  Create a container in the ADLS named`source` indicating where the source files or raw files will be stored.
 
-6.  Create a container in the ADLS named`source` indicating where the source files or raw files will be stored.
-
-7.  You can either upload the source files manually or use the python script to fetch and drop the data in the container.
+- 7.  You can either upload the source files manually or use the python script to fetch and drop the data in the container.
 
 As a consultant, it is common that the client will most likely drop the source files in a container where your pipeline can pick it up.
 So the ADLS container can be business-phasing or client-phasing by exposing it to the client or business so they can always drop source file in the container for you.
@@ -68,7 +71,7 @@ For this project, i used a data ingestion script `ingest_data.py`that uploads th
 
 Get `AZURE_CONNECTION_STRING` from 'Access and Access Keys' in your container 'security + networking'
 
-8.  Create a SQL Database with two schema. STG FOR staging raw data (BRONZE STAGE) and EDW for Enterprise or business ready data (GOLD STAGE)
+- 8.  Create a SQL Database with two schema. STG FOR staging raw data (BRONZE STAGE) and EDW for Enterprise or business ready data (GOLD STAGE)
 
 NB: Ensure it is within the same resource group for the project for better classification  
 
@@ -77,12 +80,12 @@ Additionally, it can integrate with on-premises Active Directory and other SaaS 
 
 For full capability; log in the SQL Database on `Azure Data Studio` otherwise the capabilities from the query editor is limited
 
-9.  With the resource group for the project, create another resource `Azure Data Factory` which will be used to build the pipeline for this project.
+- 9.  With the resource group for the project, create another resource `Azure Data Factory` which will be used to build the pipeline for this project.
 
 SSIS is more like a legacy version of ADF, so we used ADF for this project since client is moving to the cloud and moving away from on-prem.
 
 
-10.  Link ADF to your repository either on AzureDevOps or Github
+- 10.  Link ADF to your repository either on AzureDevOps or Github
 
 
 # The ELTL Pipeline Configuration on Azure Data Factory (ADF)
