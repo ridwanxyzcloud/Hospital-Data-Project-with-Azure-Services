@@ -43,6 +43,8 @@ Goal is to identify stakeholders needs and outline scope of the project.
 - 2.  Gather requirements and define the project objectives. It is very important that the objectives address the business needs and provides solution to the business problems.
 
 - 3.  Design a dimensional data model (OLAP) in accordance to the business needs and the OLTP ERD design or schema of the business
+
+![hospital_dimensional_model.png](data_model%2FHospital_Dimensional_ERD_Model.png)
   
 - 4.  Create a Resource group on Azure to host all services needed for the project. Create a tag to track all services relating to the project as well.
 
